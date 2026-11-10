@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8f5">
+  <title>Bhai Dooj Special 🪔 Discord Sisters Celebration!</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #51434d;
+      --muted: #96838f;
+      --pink: #e6a8bc;
+      --rose: #fff1f4;
+      --peach: #fff5ec;
+      --lilac: #f5f0ff;
+      --gold: #d7ae69;
+      --paper: rgba(255, 255, 255, 0.78);
+      --line: #f0e5e8;
+      --shadow: 0 16px 45px rgba(111, 76, 91, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 5%, #fff0ef 0, transparent 38%),
+        radial-gradient(ellipse at 90% 15%, #f5efff 0, transparent 35%),
+        #fffaf8;
+    }
+
+    button { font: inherit; }
+
+    .topline {
+      height: 5px;
+      background: linear-gradient(90deg, #edc9a8, #e6b6c8, #d9c4ef, #edc9a8);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px clamp(16px, 4vw, 48px);
+      background: rgba(255, 250, 248, 0.88);
+      border-bottom: 1px solid rgba(232, 215, 220, 0.7);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .brand-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(145deg, #fff1d8, #f8dce7);
+      font-size: 21px;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .brand h1 {
+      margin: 0;
+      font-family: Cinzel, serif;
+      font-size: clamp(13px, 2vw, 18px);
+      line-height: 1.35;
+    }
+
+    .brand p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .soft-button, .nav-button, .primary-button {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--ink);
+      background: white;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .soft-button:hover, .nav-button:hover, .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(125, 83, 103, 0.1);
+    }
+
+    .soft-button {
+      padding: 9px 12px;
+      color: #947245;
+      font-size: 12px;
+    }
+
+    .layout {
+      width: min(100% - 32px, 980px);
+      margin: 24px auto 0;
+    }
+
+    .page-nav {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      padding: 7px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.66);
+    }
+
+    .nav-button {
+      min-height: 42px;
+      padding: 9px 10px;
+      background: transparent;
+      border-color: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .nav-button.active {
+      color: #775a69;
+      background: #fff;
+      border-color: #f1e4e8;
+      box-shadow: 0 4px 12px rgba(125, 83, 103, 0.06);
+    }
+
+    main { min-height: 65vh; }
+
+    .page {
+      display: none;
+      padding: clamp(20px, 5vw, 42px);
+      border: 1px solid rgba(239, 223, 228, 0.9);
+      border-radius: 28px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      animation: fade-in 0.25s ease both;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 11px;
+      margin-bottom: 12px;
+      border: 1px solid #f0e3e5;
+      border-radius: 99px;
+      background: #fff7f6;
+      color: #aa7a84;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .page-heading {
+      margin-bottom: 7px;
+      font-family: Cinzel, serif;
+      font-size: clamp(22px, 4vw, 34px);
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .page-intro {
+      max-width: 600px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      align-items: stretch;
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    .person-card, .brother-card, .chat-box, .letter-card, .thali, .gift-card {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .person-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 14px;
+      text-align: center;
+    }
+
+    .sister-one { background: linear-gradient(160deg, #fcf8ff, #fff); }
+    .sister-two { background: linear-gradient(160deg, #fff5f7, #fff); }
+
+    .role-tag {
+      padding: 6px 10px;
+      border-radius: 99px;
+      background: #f4edff;
+      color: #8e75a5;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .sister-two .role-tag {
+      background: #fff0f3;
+      color: #bd8297;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      margin: 15px 0 10px;
+    }
+
+    .avatar {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #f0d4c6;
+      border-radius: 50%;
+      background: #f7f0ec;
+      object-fit: cover;
+    }
+
+    .person-card h3 {
+      margin: 0 0 4px;
+      font-size: 14px;
+    }
+
+    .handle {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .treats {
+      width: 100%;
+      margin-top: auto;
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .treats-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #aa8b64;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .treat-buttons {
+      display: flex;
+      gap: 5px;
+    }
+
+    .treat-button {
+      flex: 1;
+      padding: 8px 5px;
+      border: 1px solid #f0e3d5;
+      border-radius: 10px;
+      background: #fffaf4;
+      color: #97784f;
+      cursor: pointer;
+      font-size: 9px;
+    }
+
+    .brother-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 18px 20px;
+      border-color: #ebd9b8;
+      background: linear-gradient(180deg, #fffaf0, #fff);
+      text-align: center;
+    }
+
+    .stage-label {
+      position: absolute;
+      top: -11px;
+      padding: 5px 11px;
+      border-radius: 99px;
+      background: #f3e3c3;
+      color: #846b43;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .brother-avatar {
+      width: 126px;
+      height: 126px;
+      margin: 4px 0 12px;
+      cursor: pointer;
+    }
+
+    .brother-avatar .avatar { border: 4px solid #e8c98f; }
+
+    .tilak-mark {
+      position: absolute;
+      top: 22%;
+      left: 50%;
+      z-index: 2;
+      width: 13px;
+      height: 23px;
+      border: 2px solid #f5d781;
+      border-radius: 50% 50% 45% 45%;
+      background: #ca6575;
+      box-shadow: 0 0 10px #e6a5a9;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .tilak-mark.active {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .aarti-ring {
+      position: absolute;
+      inset: -9px;
+      border: 2px dashed #e6bf78;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .aarti-ring.active {
+      opacity: 1;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate { to { transform: rotate(360deg); } }
+
+    .online-dot {
+      position: absolute;
+      right: 2px;
+      bottom: 4px;
+      width: 17px;
+      height: 17px;
+      border: 3px solid white;
+      border-radius: 50%;
+      background: #87bd9b;
+    }
+
+    .brother-card h3 {
+      margin: 0 0 4px;
+      color: #a9854c;
+      font-size: 17px;
+    }
+
+    .brother-card .handle { margin-bottom: 12px; }
+
+    .status {
+      min-height: 34px;
+      padding: 8px 10px;
+      border: 1px solid #efe4d4;
+      border-radius: 12px;
+      background: #fffcf6;
+      color: #9c8158;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .primary-button {
+      padding: 10px 15px;
+      border-color: transparent;
+      background: #f2e4ca;
+      color: #785f3c;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .thali-wrap {
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .thali-label {
+      display: block;
+      margin-bottom: 12px;
+      color: #a78a63;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .thali {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      border-color: #ebdfcd;
+      background: #fffaf1;
+    }
+
+    .thali-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      border-radius: 13px;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .thali-item.selected {
+      border-color: #ead4a6;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(160, 126, 67, 0.08);
+    }
+
+    .thali-item .emoji { font-size: 22px; }
+    .thali-item strong, .thali-item small { display: block; }
+    .thali-item strong { color: #92764d; font-size: 10px; }
+    .thali-item small { margin-top: 3px; color: var(--muted); font-size: 9px; }
+
+    .chat-box {
+      padding: clamp(14px, 4vw, 25px);
+      background: #fffdfd;
+    }
+
+    .timeline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 3px 0 18px;
+      color: #a2939b;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .timeline::before, .timeline::after {
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+      content: "";
+    }
+
+    .discord-msg {
+      display: flex;
+      gap: 11px;
+      padding: 13px;
+      margin-top: 10px;
+      border: 1px solid #f1e8eb;
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .chat-avatar {
+      width: 37px;
+      height: 37px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #f7f0ec;
+      object-fit: cover;
+    }
+
+    .chat-content { min-width: 0; }
+    .chat-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+    .chat-meta strong { font-size: 11px; }
+    .chat-meta small { color: var(--muted); font-size: 9px; }
+    .chat-badge { color: #9f7d9d; font-size: 8px; }
+    .chat-content p { margin: 5px 0 0; font-size: 12px; line-height: 1.6; }
+
+    .reactions { display: flex; gap: 6px; margin-top: 8px; }
+    .reaction {
+      padding: 4px 7px;
+      border: 1px solid #eee6e9;
+      border-radius: 8px;
+      background: #fffafa;
+      font-size: 10px;
+    }
+
+    .letter-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .letter-header h2 {
+      margin: 0;
+      font-family: Cinzel, serif;
+      font-size: clamp(20px, 4vw, 29px);
+    }
+
+    .letter-header p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fffafa;
+    }
+
+    .tab-button {
+      padding: 9px 12px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .tab-button.active {
+      background: #f5edff;
+      color: #856d9e;
+    }
+
+    .tab-button.active.pink {
+      background: #fff0f4;
+      color: #ad7186;
+    }
+
+    .letter-card {
+      padding: clamp(18px, 4vw, 28px);
+      background: linear-gradient(145deg, #fff, #fffafd);
+    }
+
+    .letter-card.pink { background: linear-gradient(145deg, #fff, #fff8f9); }
+
+    .letter-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding-bottom: 14px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .letter-icon {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border-radius: 50%;
+      background: #f6efff;
+      font-size: 18px;
+    }
+
+    .pink .letter-icon { background: #fff0f3; }
+
+    .letter-title h3 { margin: 0; font-size: 14px; }
+    .letter-title p { margin: 4px 0 0; color: var(--muted); font-size: 10px; }
+
+    .letter-copy {
+      color: #67545e;
+      font-family: Caveat, cursive;
+      font-size: clamp(19px, 3vw, 24px);
+      line-height: 1.6;
+    }
+
+    .letter-copy p { margin: 0 0 12px; }
+    .letter-copy p:last-child { margin-bottom: 0; }
+    [hidden] { display: none !important; }
+
+    .gifts-intro { margin-bottom: 23px; }
+
+    .gifts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .gift-card {
+      padding: 25px 16px;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .gift-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(125, 83, 103, 0.08);
+    }
+
+    .gift-card:first-child { background: linear-gradient(145deg, #fcf8ff, #fff); }
+    .gift-card:last-child { background: linear-gradient(145deg, #fff5f7, #fff); }
+    .gift-emoji { display: block; margin-bottom: 10px; font-size: 39px; }
+    .gift-card strong { display: block; color: #8e719b; font-size: 12px; }
+    .gift-card:last-child strong { color: #b2788d; }
+    .gift-card small { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; }
+
+    footer {
+      padding: 30px 16px;
+      color: #a5949c;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(79, 58, 69, 0.32);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal[hidden] { display: none; }
+
+    .modal-card {
+      position: relative;
+      width: min(100%, 410px);
+      padding: 28px;
+      border: 1px solid #f0e1e4;
+      border-radius: 24px;
+      background: #fffdfc;
+      box-shadow: 0 24px 80px rgba(62, 43, 53, 0.18);
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 11px;
+      right: 13px;
+      width: 32px;
+      height: 32px;
+      border: 0;
+      border-radius: 50%;
+      background: #fff4f5;
+      color: #917d85;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .modal-icon { margin: 2px 0 8px; font-size: 38px; }
+    .modal-card h3 { margin-bottom: 8px; font-family: Cinzel, serif; font-size: 20px; }
+
+    .badge-card {
+      padding: 19px;
+      margin: 16px 0;
+      border: 1px solid #eee1ef;
+      border-radius: 17px;
+      background: linear-gradient(135deg, #f6efff, #fff1f5);
+    }
+
+    .badge-card .badge-icon { font-size: 32px; }
+    .badge-card h4 { margin: 7px 0; font-size: 15px; }
+    .badge-card p { margin: 0; color: #816d7a; font-size: 10px; line-height: 1.6; }
+
+    .contract {
+      padding: 15px;
+      margin: 16px 0;
+      border: 1px solid #e4eee5;
+      border-radius: 15px;
+      background: #f8fcf8;
+      text-align: left;
+    }
+
+    .contract-row {
+      display: flex;
+      gap: 8px;
+      padding: 9px 0;
+      border-bottom: 1px solid #e9f0e9;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .contract-row:last-child { border-bottom: 0; }
+    .contract-row span:first-child { color: #83aa8d; }
+
+    .modal-action {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .floating-sweet {
+      position: absolute;
+      z-index: 5;
+      animation: float-up 1.4s ease-out forwards;
+      pointer-events: none;
+      font-size: 27px;
+    }
+
+    @keyframes float-up {
+      to { opacity: 0; transform: translateY(-80px) rotate(25deg); }
+    }
+
+    @media (max-width: 700px) {
+      .stage-grid { grid-template-columns: 1fr; }
+      .brother-card { grid-row: 1; }
+      .person-card { padding: 17px; }
+      .avatar-wrap { width: 78px; height: 78px; }
+      .brother-avatar { width: 112px; height: 112px; }
+      .header-actions .button-label { display: none; }
+    }
+
+    @media (max-width: 520px) {
+      .layout { width: min(100% - 20px, 980px); margin-top: 14px; }
+      header { padding: 11px 12px; }
+      .brand-icon { width: 36px; height: 36px; }
+      .brand p { font-size: 9px; }
+      .page-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav-button { font-size: 10px; }
+      .gifts { grid-template-columns: 1fr; }
+      .letter-header { align-items: flex-start; }
+      .tabs { width: 100%; }
+      .tab-button { flex: 1; padding-inline: 5px; }
+      .soft-button { padding: 8px 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topline"></div>
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">🪔</div>
+      <div>
+        <h1>Bhai Dooj Celebration <span>| Friends Spot</span></h1>
+        <p>Dedicated to sisters running on 4% charging</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <a href="https://github.com/spunkyanmol/prnl-celebrations">Code</a>
+      <button id="sound-btn" class="soft-button" type="button" onclick="toggleFestiveBgm()">
+        <span id="sound-icon">♫</span> <span class="button-label">Festive Audio</span>
+      </button>
+      <button class="soft-button" type="button" onclick="triggerGlobalFireworks()">
+        ✨ <span class="button-label">Fireworks! 🎆</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="page-nav" aria-label="Celebration pages">
+      <button class="nav-button active" type="button" data-page="stage">🪔 Virtual Tilak Stage</button>
+      <button class="nav-button" type="button" data-page="flashback">💬 First Chat Ever Flashback</button>
+      <button class="nav-button" type="button" data-page="letters">💌 Personalized Letters</button>
+      <button class="nav-button" type="button" data-page="gifts">🎁 Role Gifts</button>
+    </nav>
+
+    <main>
+      <!-- PAGE 1: VIRTUAL TILAK STAGE -->
+      <section id="page-stage" class="page active" aria-labelledby="stage-heading">
+        <div class="eyebrow">🕉 Interactive Bhai Dooj Session</div>
+        <h2 id="stage-heading" class="page-heading">Virtual Tilak &amp; Pampering Zone</h2>
+        <p class="page-intro">
+          Select a tool from the Pooja Thali and click on <strong>Garnet</strong> to perform the Tilak! 🪔
+        </p>
+
+        <div class="stage-grid">
+          <article id="sister1-zone" class="person-card sister-one">
+            <span class="role-tag">Sister #1 👑</span>
+            <div class="avatar-wrap">
+              <img id="sister1-pfp" class="avatar" src="sister1.jpg" alt="Sister 1 Avatar">
+            </div>
+            <h3 id="sister1-name-label">Sister 1</h3>
+            <p class="handle">@midnight.lilith.12</p>
+            <div class="treats">
+              <span class="treats-label">Treats from Brother 🍬</span>
+              <div class="treat-buttons">
+                <button class="treat-button" type="button" onclick="feedSisterTreat('sister1', 'Kaju Katli 🍰')">Kaju Katli 🍰</button>
+                <button class="treat-button" type="button" onclick="feedSisterTreat('sister1', 'Jalebi 🥮')">Jalebi 🥮</button>
+              </div>
+            </div>
+          </article>
+
+          <article id="brother-zone" class="brother-card">
+            <span class="stage-label">👑 Brother's Stage</span>
+            <div class="avatar-wrap brother-avatar" onclick="performRitualOnBrother()" role="button" tabindex="0" aria-label="Click avatar with selected Pooja tool!">
+              <img id="brother-pfp" class="avatar" src="brother.jpg" alt="Brother Avatar">
+              <span id="brother-tilak" class="tilak-mark"></span>
+              <span id="aarti-ring" class="aarti-ring"></span>
+              <span class="online-dot" title="Online &amp; Ready for Tilak"></span>
+            </div>
+            <h3>Garnet</h3>
+            <p class="handle">@spunkyanmol</p>
+            <div id="ritual-status" class="status">Click avatar with selected Pooja tool! 🪔</div>
+            <button class="primary-button" type="button" style="margin-top:13px" onclick="openShagunModal()">Claim 💵</button>
+          </article>
+
+          <article id="sister2-zone" class="person-card sister-two">
+            <span class="role-tag">Sister #2 ⚡</span>
+            <div class="avatar-wrap">
+              <img id="sister2-pfp" class="avatar" src="sister2.jpg" alt="Sister 2 Avatar">
+            </div>
+            <h3 id="sister2-name-label">Sister 2</h3>
+            <p class="handle">@sisodia_lavanya</p>
+            <div class="treats">
+              <span class="treats-label">Treats from Brother 🍬</span>
+              <div class="treat-buttons">
+                <button class="treat-button" type="button" onclick="feedSisterTreat('sister2', 'Kaju Katli 🍰')">Kaju Katli 🍰</button>
+                <button class="treat-button" type="button" onclick="feedSisterTreat('sister2', 'Jalebi 🥮')">Jalebi 🥮</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="thali-wrap">
+          <span class="thali-label">☝ Select Pooja Tool from Thali:</span>
+          <div class="thali">
+            <button id="thali-tilak" class="thali-item selected" type="button" onclick="selectThaliTool('tilak')">
+              <span class="emoji">🔴</span><span><strong>Red Roli Tilak</strong><small>Click Brother avatar</small></span>
+            </button>
+            <button id="thali-rice" class="thali-item" type="button" onclick="selectThaliTool('rice')">
+              <span class="emoji">🌾</span><span><strong>Akshat (Rice)</strong><small>Shower blessing</small></span>
+            </button>
+            <button id="thali-aarti" class="thali-item" type="button" onclick="selectThaliTool('aarti')">
+              <span class="emoji">🪔</span><span><strong>Aarti Flame</strong><small>Rotate Aarti</small></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAGE 2: FIRST CHAT FLASHBACK -->
+      <section id="page-flashback" class="page" aria-labelledby="flashback-heading">
+        <div class="eyebrow">📌 Origin Story</div>
+        <h2 id="flashback-heading" class="page-heading">First Chat Ever Flashback 💬</h2>
+        <p class="page-intro">Pinned Memory</p>
+
+        <div class="chat-box">
+          <div class="timeline">Day 1 in Discord DM / Server • Memory Unlocked</div>
+
+          <article class="discord-msg">
+            <img id="flashback-pfp-1" class="chat-avatar" src="sister1.jpg" alt="">
+            <div class="chat-content">
+              <div class="chat-meta">
+                <strong id="flashback-name-1">Sister 1</strong>
+                <span class="chat-badge">Eating kadhi-chawal (I remember)</span>
+                <small>00:33</small>
+              </div>
+              <p>"@spunkyanmol Oyy apne school ka naam btate hue jaa"</p>
+              <div class="reactions"><span class="reaction">👍 1</span></div>
+            </div>
+          </article>
+
+          <article class="discord-msg">
+            <img id="flashback-pfp-brother" class="chat-avatar" src="brother.jpg" alt="">
+            <div class="chat-content">
+              <div class="chat-meta"><strong>spunkyanmol</strong><small>00:07</small></div>
+              <p>"mummy alert"</p>
+            </div>
+          </article>
+
+          <article class="discord-msg">
+            <img id="flashback-pfp-2" class="chat-avatar" src="sister2.jpg" alt="">
+            <div class="chat-content">
+              <div class="chat-meta">
+                <strong id="flashback-name-2">Sister 2</strong>
+                <span class="chat-badge">Just woke up</span>
+                <small>23:26</small>
+              </div>
+              <p>"Aane wale the trio tum?"</p>
+              <div class="reactions"><span class="reaction">🙂 1</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PAGE 3: PERSONALIZED LETTERS -->
+      <section id="page-letters" class="page" aria-labelledby="letters-heading">
+        <div class="letter-header">
+          <div>
+            <h2 id="letters-heading">💌 Personalized Letters</h2>
+            <p>Dedicated Bhai Dooj notes for both sisters</p>
+          </div>
+          <div class="tabs" role="tablist" aria-label="Sister letters">
+            <button id="tab-btn-s1" class="tab-button active" type="button" role="tab" aria-selected="true" onclick="switchSisterTab('sister1')">
+              <span id="tab-label-s1">Sister 1's Letter</span> 👑
+            </button>
+            <button id="tab-btn-s2" class="tab-button" type="button" role="tab" aria-selected="false" onclick="switchSisterTab('sister2')">
+              <span id="tab-label-s2">Sister 2's Letter</span> ⚡
+            </button>
+          </div>
+        </div>
+
+        <div id="tab-content-s1">
+          <article class="letter-card">
+            <div class="letter-title">
+              <div class="letter-icon">💌</div>
+              <div>
+                <h3 id="letter-title-1">Message for Sister 1</h3>
+                <p>From your Discord Brother</p>
+              </div>
+            </div>
+            <div class="letter-copy">
+              <p id="letter-greeting-1">,</p>
+              <p>Happy Bhai Dooj! Even though we met through Discord screens, the bond we share feels genuinely special (cuz who tf does vcs for 3 HOURS STRAIGHT!?). Thanks for accepting my bakchodi and weirdness and continuing to do vcs w/ me</p>
+              <p>Agle saal humari tarah 10th survive karne ki willpower de bhagwaan tujhe</p>
+            </div>
+          </article>
+        </div>
+
+        <div id="tab-content-s2" hidden>
+          <article class="letter-card pink">
+            <div class="letter-title">
+              <div class="letter-icon">💌</div>
+              <div>
+                <h3 id="letter-title-2">Message for Sister 2</h3>
+                <p>From your Discord Brother</p>
+              </div>
+            </div>
+            <div class="letter-copy">
+              <p id="letter-greeting-2">,</p>
+              <p>Happy Bhai Dooj! Discord VCs wouldn't be half as funny without your random memes ("what boards does to a hasta khelta baccha"), unexpected jokes, and endless bakchodi.</p>
+              <p>Bhagwaan kare tum is saal achhe se boards pass karo aur tumhari mental health normal state me aa jaaye</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PAGE 4: ROLE GIFTS -->
+      <section id="page-gifts" class="page" aria-labelledby="gifts-heading">
+        <div class="eyebrow">🎁 Special Unboxing</div>
+        <h2 id="gifts-heading" class="page-heading">Unbox Discord Role Gifts 🎁</h2>
+        <p class="page-intro gifts-intro">Click a gift box to unlock custom server badges and special Bhai Dooj awards!</p>
+
+        <div class="gifts">
+          <button class="gift-card" type="button" onclick="unboxGift('sister1')">
+            <span class="gift-emoji">🎁</span>
+            <strong id="gift-btn-label-1">Open Sister 1's Gift</strong>
+            <small>Role Badge &amp; Award</small>
+          </button>
+          <button class="gift-card" type="button" onclick="unboxGift('sister2')">
+            <span class="gift-emoji">🎁</span>
+            <strong id="gift-btn-label-2">Open Sister 2's Gift</strong>
+            <small>Role Badge &amp; Award</small>
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>Crafted with neend for Discord Sisters • Happy Bhai Dooj ✨</footer>
+
+  <!-- Gift Unbox Modal -->
+  <div id="gift-modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <button class="modal-close" type="button" aria-label="Close" onclick="closeGiftModal()">×</button>
+      <div class="modal-icon">🏆</div>
+      <h3 id="modal-title">Discord Role Badge Unlocked!</h3>
+      <div id="modal-badge-card" class="badge-card">
+        <div id="modal-badge-icon" class="badge-icon">👑</div>
+        <h4 id="modal-badge-title">👑 Best Discord Sister Ever</h4>
+        <p id="modal-badge-desc">Granted 100% VIP immunity and unlimited server respect!</p>
+      </div>
+      <button class="primary-button modal-action" type="button" onclick="closeGiftModal()">Claim Badge &amp; Celebrate! 🎉</button>
+    </div>
+  </div>
+
+  <!-- Shagun Envelope Modal -->
+  <div id="shagun-modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="shagun-heading">
+    <div class="modal-card">
+      <button class="modal-close" type="button" aria-label="Close" onclick="closeShagunModal()">×</button>
+      <div class="modal-icon">💵</div>
+      <h3 id="shagun-heading">Virtual Shagun &amp; Promises!</h3>
+      <p style="color:#87a98a;font-size:11px;font-weight:600">Official Brotherly Protection Contract</p>
+      <div class="contract">
+        <div class="contract-row"><span>✅</span><span><strong>300-400 teas</strong> (Agar hogi toh 🤩)</span></div>
+        <div class="contract-row"><span>✅</span><span><strong>Ek din sirf vc!</strong> wo din aayega kabhi, tensan naku lo</span></div>
+        <div class="contract-row"><span>✅</span><span><strong>Unlimited bakchodi</strong> guaranteed</span></div>
+      </div>
+      <button class="primary-button modal-action" type="button" onclick="closeShagunModal()">Accept Shagun Contract 📜</button>
+    </div>
+  </div>
+
+  <script>
+    // 🖼️ HARDCODED LOCAL FILE PATHS & NAMES (EDIT DIRECTLY HERE)
+    const BROTHER_PFP = 'mezurashi.jpg';  // <-- Brother local image file
+    const SISTER1_PFP = 'khurpee.png';  // <-- Sister 1 local image file
+    const SISTER2_PFP = 'amethyst.png';  // <-- Sister 2 local image file
+
+    const SISTER1_NAME = 'Kaori';   // <-- Replace with Sister 1's name
+    const SISTER2_NAME = 'Amethyst';   // <-- Replace with Sister 2's name
+
+    let selectedThaliTool = 'tilak';
+    let audioCtx = null;
+    let isBgmPlaying = false;
+
+    const sisters = {
+      sister1: { name: SISTER1_NAME, role: 'Anime Larper', handle: '@kaorichan4567' },
+      sister2: { name: SISTER2_NAME, role: '*cooked by pre-boards*', handle: '@hehe6379' }
+    };
+
+    function loadHardcodedData() {
+      const images = {
+        'brother-pfp': BROTHER_PFP,
+        'flashback-pfp-brother': BROTHER_PFP,
+        'sister1-pfp': SISTER1_PFP,
+        'flashback-pfp-1': SISTER1_PFP,
+        'sister2-pfp': SISTER2_PFP,
+        'flashback-pfp-2': SISTER2_PFP
+      };
+
+      Object.entries(images).forEach(([id, src]) => {
+        const image = document.getElementById(id);
+        image.src = src;
+        image.onerror = () => {
+          image.onerror = null;
+          image.src = `https://api.dicebear.com/7.x/bottts/svg?seed=${id}`;
+        };
+      });
+
+      document.getElementById('sister1-name-label').innerText = SISTER1_NAME;
+      document.getElementById('sister2-name-label').innerText = SISTER2_NAME;
+      document.getElementById('flashback-name-1').innerText = SISTER1_NAME;
+      document.getElementById('flashback-name-2').innerText = SISTER2_NAME;
+      document.getElementById('tab-label-s1').innerText = `${SISTER1_NAME}'s Letter`;
+      document.getElementById('tab-label-s2').innerText = `${SISTER2_NAME}'s Letter`;
+      document.getElementById('letter-title-1').innerText = `Message for ${SISTER1_NAME}`;
+      document.getElementById('letter-title-2').innerText = `Message for ${SISTER2_NAME}`;
+      document.getElementById('letter-greeting-1').innerText = `Behen ${SISTER1_NAME},`;
+      document.getElementById('letter-greeting-2').innerText = `Behen ${SISTER2_NAME},`;
+      document.getElementById('gift-btn-label-1').innerText = `Open ${SISTER1_NAME}'s Gift`;
+      document.getElementById('gift-btn-label-2').innerText = `Open ${SISTER2_NAME}'s Gift`;
+    }
+
+    function showPage(pageName) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      document.querySelectorAll('.nav-button').forEach(button => button.classList.remove('active'));
+
+      document.getElementById(`page-${pageName}`).classList.add('active');
+      document.querySelector(`[data-page="${pageName}"]`).classList.add('active');
+      history.replaceState(null, '', `#${pageName}`);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.nav-button').forEach(button => {
+      button.addEventListener('click', () => showPage(button.dataset.page));
+    });
+
+    function selectThaliTool(tool) {
+      selectedThaliTool = tool;
+      document.querySelectorAll('.thali-item').forEach(item => item.classList.remove('selected'));
+      document.getElementById(`thali-${tool}`).classList.add('selected');
+      playChimeSound(600, 0.1);
+    }
+
+    function performRitualOnBrother() {
+      const status = document.getElementById('ritual-status');
+
+      if (selectedThaliTool === 'tilak') {
+        document.getElementById('brother-tilak').classList.add('active');
+        status.innerHTML = '<strong>✨ Red Roli Tilak Applied on Brother!</strong>';
+        triggerConfettiFromElement('brother-zone', ['#e7a5b4', '#e7c889']);
+        playFanfareSound();
+      } else if (selectedThaliTool === 'rice') {
+        status.innerHTML = '<strong>🌾 Akshat Showered on Brother!</strong>';
+        triggerConfettiFromElement('brother-zone', ['#ffffff', '#fff8dc', '#fef08a']);
+        playChimeSound(880, 0.2);
+      } else {
+        document.getElementById('aarti-ring').classList.add('active');
+        status.innerHTML = '<strong>🪔 Aarti Performed for Brother!</strong>';
+        triggerConfettiFromElement('brother-zone', ['#fbbf24', '#f59e0b', '#ffffff']);
+        playChimeSound(523.25, 0.3);
+      }
+    }
+
+    function feedSisterTreat(sisterKey, treatName) {
+      const name = sisters[sisterKey].name;
+      document.getElementById('ritual-status').innerHTML =
+        `<strong>Bhai gave ${treatName} to ${name}! 💖</strong>`;
+
+      const zone = document.getElementById(`${sisterKey}-zone`);
+      const sweet = document.createElement('span');
+      sweet.className = 'floating-sweet';
+      sweet.textContent = treatName.includes('Kaju') ? '🍰' : '🥮';
+      sweet.style.left = '50%';
+      sweet.style.top = '50%';
+      zone.appendChild(sweet);
+      setTimeout(() => sweet.remove(), 1500);
+
+      triggerConfettiFromElement(`${sisterKey}-zone`, ['#fbbf24', '#f472b6', '#a855f7']);
+      playChimeSound(784, 0.25);
+    }
+
+    function switchSisterTab(sisterKey) {
+      const isFirst = sisterKey === 'sister1';
+      document.getElementById('tab-content-s1').hidden = !isFirst;
+      document.getElementById('tab-content-s2').hidden = isFirst;
+
+      const firstButton = document.getElementById('tab-btn-s1');
+      const secondButton = document.getElementById('tab-btn-s2');
+      firstButton.classList.toggle('active', isFirst);
+      secondButton.classList.toggle('active', !isFirst);
+      secondButton.classList.toggle('pink', !isFirst);
+      firstButton.setAttribute('aria-selected', String(isFirst));
+      secondButton.setAttribute('aria-selected', String(!isFirst));
+
+      playChimeSound(440, 0.08);
+    }
+
+    function unboxGift(sisterKey) {
+      const name = sisters[sisterKey].name;
+      const card = document.getElementById('modal-badge-card');
+      const isFirst = sisterKey === 'sister1';
+
+      document.getElementById('modal-title').innerText = `${name}'s Achievement Unlocked!`;
+      document.getElementById('modal-badge-icon').innerText = isFirst ? '👑' : '⚡';
+      document.getElementById('modal-badge-title').innerText = isFirst
+        ? `👑 ${name} - Gundi behen`
+        : `⚡ ${name} - Caffeinated behen`;
+      document.getElementById('modal-badge-desc').innerText = isFirst
+        ? 'Official Award: Most gundi-like, daraavni aur bhayaanak aunty in the server! (mzaak)'
+        : 'Official Award: Monster-drinker of the year with 100 heart-related issues!';
+      card.style.background = isFirst
+        ? 'linear-gradient(135deg, #f4edff, #fff1f5)'
+        : 'linear-gradient(135deg, #fff0f4, #fff6f1)';
+
+      document.getElementById('gift-modal').hidden = false;
+      triggerGlobalFireworks();
+    }
+
+    function closeGiftModal() {
+      document.getElementById('gift-modal').hidden = true;
+    }
+
+    function openShagunModal() {
+      document.getElementById('shagun-modal').hidden = false;
+      triggerGlobalFireworks();
+    }
+
+    function closeShagunModal() {
+      document.getElementById('shagun-modal').hidden = true;
+    }
+
+    function triggerConfettiFromElement(id, colors) {
+      if (typeof confetti !== 'function') return;
+      const rect = document.getElementById(id).getBoundingClientRect();
+      confetti({
+        particleCount: 32,
+        spread: 48,
+        origin: {
+          x: (rect.left + rect.width / 2) / window.innerWidth,
+          y: (rect.top + rect.height / 2) / window.innerHeight
+        },
+        colors
+      });
+    }
+
+    function triggerGlobalFireworks() {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 90, spread: 80, origin: { y: 0.55 } });
+      }
+      playFanfareSound();
+    }
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return false;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return true;
+    }
+
+    function playChimeSound(freq, duration) {
+      try {
+        if (!initAudioContext()) return;
+        const oscillator = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        oscillator.connect(gain);
+        gain.connect(audioCtx.destination);
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + duration);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    function playFanfareSound() {
+      [523.25, 659.25, 783.99, 1046.50].forEach((note, index) => {
+        setTimeout(() => playChimeSound(note, 0.22), index * 90);
+      });
+    }
+
+    function toggleFestiveBgm() {
+      if (!initAudioContext()) return;
+      isBgmPlaying = !isBgmPlaying;
+      document.getElementById('sound-icon').textContent = isBgmPlaying ? '♫♪' : '♫';
+      document.getElementById('sound-btn').setAttribute('aria-pressed', String(isBgmPlaying));
+      if (isBgmPlaying) playFanfareSound();
+    }
+
+    document.querySelector('.brother-avatar').addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        performRitualOnBrother();
+      }
+    });
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', event => {
+        if (event.target === modal) modal.hidden = true;
+      });
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        closeGiftModal();
+        closeShagunModal();
+      }
+    });
+
+    loadHardcodedData();
+
+    const initialPage = window.location.hash.slice(1);
+    if (['stage', 'flashback', 'letters', 'gifts'].includes(initialPage)) {
+      showPage(initialPage);
+    }
+  </script>
+</body>
+</html>
